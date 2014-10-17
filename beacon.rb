@@ -7,9 +7,17 @@ module Beacon
   
   attach_function :print_usage, [], :void
   attach_function :print_version, [], :void
-  attach_function :startWithTimeInterval, [:double], :void
+  callback :completion_function, [:string, :int, :int, :int, :int], :int
+  
+  attach_function :startWithTimeInterval, [:double, :completion_function], :void
 end
 
 # Beacon.print_usage
-Beacon.print_version
+# Beacon.print_version
+# trap("INT") { puts "Shutting down."; exit}
 # Beacon.startWithTimeInterval(1.1)
+callback = Proc.new do |uuid, major, minor, power, rssi|
+  puts "super #{uuid} #{major} #{minor} #{power} #{rssi}!"
+  return 1
+end
+Beacon.startWithTimeInterval(1.1,callback)
