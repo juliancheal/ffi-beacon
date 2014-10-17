@@ -20,7 +20,7 @@ trap("INT") { exit! }
 
 # Beacon.startWithTimeInterval(1.1)
 callback = Proc.new do |uuid, major, minor, power, rssi|
-  puts "super #{uuid} #{major} #{minor} #{power} #{rssi}!"
-  return 100
+  puts "uuid: #{uuid}, major: #{major}, minor: #{minor}, power: #{power}, rssi: #{rssi}"
+  return 1
 end
 Beacon.startWithTimeInterval(1.1,callback)
