@@ -18,5 +18,4 @@ module Beacon
     end
     Beacon.startWithTimeInterval(interval,callback)
   end
-
 end
