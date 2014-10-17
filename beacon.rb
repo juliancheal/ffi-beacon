@@ -9,15 +9,14 @@ module Beacon
   callback :completion_function, [:string, :int, :int, :int, :int], :int
   
   attach_function :startWithTimeInterval, [:double, :completion_function], :void
+
+  def self.scan(interval=1.1)
+    scan = {}
+    callback = Proc.new do |uuid, major, minor, power, rssi|
+      scan = {uuid: uuid, major: major, minor: minor, power: power, rssi: rssi}
+      return scan
+    end
+    Beacon.startWithTimeInterval(interval,callback)
+  end
+
 end
-
-# Beacon.print_version
-
-trap("INT") { exit! }
-
-callback = Proc.new do |uuid, major, minor, power, rssi|
-  puts "uuid: #{uuid}, major: #{major}, minor: #{minor}, power: #{power}, rssi: #{rssi}"
-  return 1
-end
-
-Beacon.startWithTimeInterval(1.1,callback)
