@@ -19,4 +19,5 @@ callback = Proc.new do |uuid, major, minor, power, rssi|
   puts "uuid: #{uuid}, major: #{major}, minor: #{minor}, power: #{power}, rssi: #{rssi}"
   return 1
 end
+
 Beacon.startWithTimeInterval(1.1,callback)
